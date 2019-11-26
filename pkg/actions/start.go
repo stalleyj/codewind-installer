@@ -28,9 +28,6 @@ func StartCommand(c *cli.Context, tempFilePath string, healthEndpoint string) {
 		debug := c.Bool("debug")
 		logr.Infoln("Debug:", debug)
 
-		// Stop all running project containers and remove codewind networks
-		StopAllCommand()
-
 		utils.CreateTempFile(tempFilePath)
 		utils.WriteToComposeFile(tempFilePath, debug)
 		utils.DockerCompose(tempFilePath, tag)

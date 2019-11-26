@@ -41,14 +41,4 @@ func StopAllCommand() {
 			}
 		}
 	}
-
-	networkName := "codewind"
-	networks := utils.GetNetworkList()
-	logr.Infoln("Removing Codewind docker networks..")
-	for _, network := range networks {
-		if strings.Contains(network.Name, networkName) {
-			logr.Infoln("Removing docker network: ", network.Name, "... ")
-			utils.RemoveNetwork(network)
-		}
-	}
 }

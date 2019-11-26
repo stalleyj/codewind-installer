@@ -142,7 +142,7 @@ func DockerCompose(tempFilePath string, tag string) {
 	}
 	os.Setenv("PFE_EXTERNAL_PORT", port)
 
-	cmd := exec.Command("docker-compose", "-f", tempFilePath, "up", "-d")
+	cmd := exec.Command("docker-compose", "-f", tempFilePath, "up", "-d", "--force-recreate")
 	output := new(bytes.Buffer)
 	cmd.Stdout = output
 	cmd.Stderr = output
@@ -351,7 +351,7 @@ func StopContainer(container types.Container) {
 	// when an appsody container stops
 	if !strings.HasPrefix(container.Image, "appsody") {
 		// Remove the container so it isnt lingering in the background
-		if err := cli.ContainerRemove(ctx, container.ID, types.ContainerRemoveOptions{}); err != nil {
+		if err := cli.ContainerRemove(ctx, container.ID, types.ContainerRemoveOptions{Force: true}); err != nil {
 			errors.CheckErr(err, 108, "")
 		}
 	}
